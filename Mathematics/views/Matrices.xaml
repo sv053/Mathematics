@@ -1,0 +1,278 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:CorLib="clr-namespace:System;assembly=mscorlib" 
+    xmlns:local="clr-namespace:Mathematics.views"
+        xmlns:classes="clr-namespace:Mathematics.classes" x:Class="Mathematics.views.Matrices"
+        mc:Ignorable="d"
+        Title="Матрицы" Width="800" FontFamily="Arial" Foreground="Navy">
+
+    <Grid Background="#FFE2E5E8">
+        <ScrollViewer>
+            <Grid Grid.Row="0" >
+                <Grid.ColumnDefinitions  >
+                    <ColumnDefinition MinWidth="100" MaxWidth="250" Width="113*" />
+                    <ColumnDefinition Width="592*" MinWidth="100"/>
+
+                </Grid.ColumnDefinitions>
+
+                <WrapPanel Grid.Row="0" Grid.Column="0" Background="#FFEAFAFB" Margin="10" HorizontalAlignment="Left" Width="103"  >
+
+                    <Label FontWeight="Bold" HorizontalAlignment="Stretch">
+                        <TextBlock TextWrapping="Wrap"><Run Text="Исходные данные"/></TextBlock>
+                    </Label>
+                    <Label HorizontalAlignment="Stretch">
+                        <TextBlock TextWrapping="Wrap"><Run Text="Порядок системы n"/></TextBlock>
+                    </Label>
+                    <Label HorizontalAlignment="Stretch">
+                        <TextBlock TextWrapping="Wrap"><Run Text="Матрица системы А"/></TextBlock>
+                    </Label>
+                    <Label HorizontalAlignment="Stretch">
+                        <TextBlock ><Run Text="Правая часть системы"/></TextBlock>
+                    </Label>
+                    <Label >
+                        <TextBlock ><Run Text="Точность (для итерац.методов)"/></TextBlock>
+                    </Label>
+                    <Label Content="Метод"/>
+                    <Label FontWeight="Bold" HorizontalAlignment="Stretch">
+                        <TextBlock ><Run Text="Выходные данные"/></TextBlock>
+                    </Label>
+                    <Label Content="Решение системы" />
+                    <Label Content="Невязка"  />
+                    <Label HorizontalAlignment="Stretch">
+                        <TextBlock ><Run Text="Значение определителя"/></TextBlock>
+                    </Label>
+                    <Label >
+                        <TextBlock ><Run Text="Обратная матрица"/></TextBlock>
+                    </Label>
+                    <Label >
+                        <TextBlock><Run Text="Произведение прямой и обратной матриц"/></TextBlock>
+                    </Label>
+                    <Label x:Name="det" FontWeight="Bold" BorderBrush="#FF5C9787" Background="#FFCDDED2"  />
+
+                </WrapPanel>
+
+                <WrapPanel Grid.Column="1"  Margin="10" >
+
+                    <ListView x:Name="AMatrix" Margin="5" >
+                        <ListView.View >
+
+                            <GridView >
+                                <GridViewColumn  Header="Исходная матрица A" >
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" >
+                                                <TextBlock Margin="5,0, 5,0" Background="LavenderBlush" Text="{Binding First, StringFormat='{}{0,12:f4}'}" />
+                                                <TextBlock  Margin="5,0,5,0" Background="LightCyan"  Text="{Binding Second, StringFormat='{}{0,12:f4}'}" />
+                                                <TextBlock  Margin="5,0,5,0" Background="LightGray"  Text="{Binding Third, StringFormat='{}{0,12:f4}'}" />
+                                                <!--<TextBlock Margin="5,0, 5,0" Background="LavenderBlush" Text="{Binding First}" Style="{StaticResource double}"/>
+                                                <TextBlock  Margin="5,0,5,0" Background="LightCyan"  Text="{Binding Second}" Style="{StaticResource double}"/>
+                                                <TextBlock  Margin="5,0,5,0" Background="LightGray"  Text="{Binding Third }" Style="{StaticResource double}"/>-->
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+      
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                    <ListView x:Name="yA" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" >
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Правая часть">
+                                <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Style="{StaticResource double}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <ListView x:Name="BMatrix" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" >
+                        <ListView.View >
+                            <GridView >
+                                <GridViewColumn Header="B-матрица" >
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" >
+
+                                                <!--<TextBlock  Background="LavenderBlush" Margin="5,0,5,0"  Text="{Binding First, StringFormat='{}{0,12:E4}'}" Style="{StaticResource double}" />
+                                                <TextBlock  Background="LightCyan" Margin="5,0,5,0"  Text="{Binding Second, StringFormat='{}{0,12:E4}'}" Style="{StaticResource double}"/>
+                                                <TextBlock  Background="LightGray" Margin="5,0,5,0" Text="{Binding Third, StringFormat='{}{0,12:E4}'}" Style="{StaticResource double}"/>-->
+                                                <TextBlock  Background="LavenderBlush" Margin="5,0,5,0"  Text="{Binding First, StringFormat='{}{0,12:f4}'}" />
+                                                <TextBlock  Background="LightCyan" Margin="5,0,5,0"  Text="{Binding Second, StringFormat='{}{0,12:f4}'}"/>
+                                                <TextBlock  Background="LightGray" Margin="5,0,5,0" Text="{Binding Third, StringFormat='{}{0,12:f4}'}"/>
+                                            </StackPanel>
+                                            </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                    <ListView x:Name="CMatrix" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" >
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn  Header="C-матрица" >
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" >
+
+                                                <!--<TextBlock  Background="LavenderBlush" Margin="5,0,5,0" Text="{Binding First}" Style="{StaticResource double}"/>
+                                                <TextBlock  Background="LightCyan" Margin="5,0,5,0" Text="{Binding Second }" Style="{StaticResource double}"/>
+                                                <TextBlock  Background="LightGray" Margin="5,0,5,0" Text="{Binding Third }" Style="{StaticResource double}"/>-->
+                                                <TextBlock  Background="LavenderBlush" Margin="5,0,5,0" Text="{Binding First, StringFormat='{}{0,12:f4}'}" />
+                                                <TextBlock  Background="LightCyan" Margin="5,0,5,0" Text="{Binding Second, StringFormat='{}{0,12:f4}'}"/>
+                                                <TextBlock  Background="LightGray" Margin="5,0,5,0" Text="{Binding Third, StringFormat='{}{0,12:f4}'}"/>
+                                            </StackPanel>
+
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                    <ListView x:Name="x" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" >
+                        <ListView.View >
+                            <GridView >
+                                <GridViewColumn Header="Решение системы"  >
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Style="{StaticResource double}" Text="{Binding StringFormat='{}{0,12:f4}'}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                    <ListView x:Name="yB" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" >
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Значения Y"  >
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <!--<TextBlock Style="{StaticResource double}" Text="{Binding StringFormat='{}{0,12:f4}'}"/>-->
+                                            <TextBlock Style="{StaticResource double}" Text="{Binding StringFormat='{}{0,12:f4}'}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <!--<ListView x:Name="transM" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Транспонированная матрица"  >
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" >
+                                                <TextBlock  Background="LavenderBlush" Margin="5,0,5,0" Text="{Binding First, StringFormat='{}{0,12:f4}'}" Style="{StaticResource double}" />
+                                                <TextBlock  Background="LightCyan" Margin="5,0,5,0" Text="{Binding Second, StringFormat='{}{0,12:f4}'}" Style="{StaticResource double}"/>
+                                                <TextBlock  Background="LightGray" Margin="5,0,5,0" Text="{Binding Third, StringFormat='{}{0,12:f4}'}" Style="{StaticResource double}"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>-->
+                    <ListView x:Name="reversM" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" >
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Обратная матрица - Х"  >
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" >
+                                                <!--<TextBlock  Background="LavenderBlush" Margin="5,0,5,0" Text="{Binding First, StringFormat='{}{0,12:E4}'}" Style="{StaticResource double}" />
+                                                <TextBlock  Background="LightCyan" Margin="5,0,5,0" Text="{Binding Second, StringFormat='{}{0,12:E4}'}" Style="{StaticResource double}"/>
+                                                <TextBlock  Background="LightGray" Margin="5,0,5,0" Text="{Binding Third, StringFormat='{}{0,12:E4}'}" Style="{StaticResource double}"/>-->
+                                                <TextBlock  Background="LavenderBlush" Margin="5,0,5,0" Text="{Binding First, StringFormat='{}{0,12:f4}'}" />
+                                                <TextBlock  Background="LightCyan" Margin="5,0,5,0" Text="{Binding Second, StringFormat='{}{0,12:f4}'}" />
+                                                <TextBlock  Background="LightGray" Margin="5,0,5,0" Text="{Binding Third, StringFormat='{}{0,12:f4}'}" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <ListView x:Name="reversMY" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" >
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Обратная матрица - У"  >
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" >
+                                                <TextBlock  Background="LavenderBlush" Margin="5,0,5,0" Text="{Binding First, StringFormat='{}{0,12:f4}'}" />
+                                                <TextBlock  Background="LightCyan" Margin="5,0,5,0" Text="{Binding Second, StringFormat='{}{0,12:f4}'}" />
+                                                <TextBlock  Background="LightGray" Margin="5,0,5,0" Text="{Binding Third, StringFormat='{}{0,12:f4}'}" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <ListView x:Name="checkM" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Невязка"  >
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Style="{StaticResource double}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                   
+                    <ListView x:Name="forSth" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" >
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Произведение матриц"  >
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" >
+                                                <TextBlock  Background="LavenderBlush" Margin="5,0,5,0" Text="{Binding First, StringFormat='{}{0,12:f4}'}" Style="{StaticResource double}" />
+                                                <TextBlock  Background="LightCyan" Margin="5,0,5,0" Text="{Binding Second, StringFormat='{}{0,12:f4}'}" Style="{StaticResource double}"/>
+                                                <TextBlock  Background="LightGray" Margin="5,0,5,0" Text="{Binding Third, StringFormat='{}{0,12:f4}'}" Style="{StaticResource double}"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <ListView x:Name="errorM" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" >
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Матрица невязки"  >
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" >
+                                                <TextBlock  Background="LavenderBlush" Margin="5,0,5,0" Text="{Binding First, StringFormat='{}{0,12:E4}'}" Style="{StaticResource double}" />
+                                                <TextBlock  Background="LightCyan" Margin="5,0,5,0" Text="{Binding Second, StringFormat='{}{0,12:E4}'}" Style="{StaticResource double}"/>
+                                                <TextBlock  Background="LightGray" Margin="5,0,5,0" Text="{Binding Third, StringFormat='{}{0,12:E4}'}" Style="{StaticResource double}"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Label x:Name="MatrixNorma"/>
+                    <Label x:Name="VectorNorma" BorderBrush="Black"/>
+                </WrapPanel>
+
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Window>

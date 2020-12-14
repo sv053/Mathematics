@@ -1,0 +1,26 @@
+﻿<Application x:Class="Mathematics.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Mathematics"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <Style x:Key="WindowStyle" TargetType="{x:Type Window}">
+            <Setter Property="FontFamily" Value="Arial" />
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="Foreground" Value="Navy" />
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="Navy"></Setter>
+        </Style>
+        <Style x:Key="double" TargetType="TextBlock">
+            <!--<Setter Property="Text" Value="{Binding StringFormat='{}{0,12:G4}'}" />-->
+            <Setter Property="Text" Value="{Binding StringFormat='{}{0,2:E4}'}" />
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Cursor" Value="Hand"></Setter>
+        </Style>
+    </Application.Resources>
+</Application>
